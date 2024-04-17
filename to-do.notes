@@ -1,0 +1,8 @@
+To do:
+
+[ ]  Create an sh script that takes a resource name and creates:
+  - routes: get all, get by id, post, put, delete
+  - services: getAll, getById, create, update, delete
+  - repositories: getAll, getById, create, update, delete
+
+  - Example: scriptName generate-resource resourceName
