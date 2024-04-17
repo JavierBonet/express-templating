@@ -1,13 +1,16 @@
 {
   "name": "@javierbonet/express-templating",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "bin": "./build/bin.js",
   "license": "MIT",
   "author": {
     "email": "javbonet@gmail.com",
     "name": "Javier Bonet"
   },
-  "keywords": [ "express", "template" ],
+  "keywords": [
+    "express",
+    "template"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/JavierBonet/express-templating.git"
