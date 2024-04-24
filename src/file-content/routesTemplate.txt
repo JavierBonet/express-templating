@@ -1,0 +1,83 @@
+import express, { Request, Router } from "express";
+import { {{uppercaseResourceName}} } from "../../../../database/entities/{{uppercaseResourceName}}";
+import {{uppercaseResourceName}}Service from "../../../services/{{lowercaseResourceName}}Service";
+import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
+
+class {{uppercaseResourceName}}Routes {
+  private {{lowercaseResourceName}}Service: {{uppercaseResourceName}}Service;
+  private _router: Router;
+
+  constructor() {
+    this.{{lowercaseResourceName}}Service = new {{uppercaseResourceName}}Service();
+    this.init();
+  }
+
+  init() {
+    this._router = express.Router();
+    this.defineRoutes();
+  }
+
+  getRouter() {
+    return this._router;
+  }
+
+  private defineRoutes() {
+    this._router.get("/", async (req, res) => {
+      const {{lowercaseResourceName}}s = await this.{{lowercaseResourceName}}Service.getAll();
+
+      return res.status(200).json({ {{lowercaseResourceName}}s });
+    });
+
+    this._router.get("/:id", async (req, res) => {
+      const id = parseInt(req.params.id);
+      const {{lowercaseResourceName}} = await this.{{lowercaseResourceName}}Service.getById(id);
+
+      return res.status(200).json({ {{lowercaseResourceName}} });
+    });
+
+    this._router.post(
+      "/",
+      async (req: Request<any, any, Omit<{{uppercaseResourceName}}, "id">>, res) => {
+        const {{lowercaseResourceName}} = req.body;
+        return this.{{lowercaseResourceName}}Service
+          .create({{lowercaseResourceName}})
+          .then(() => {
+            res.status(200).send("Successfully created {{lowercaseResourceName}}");
+          })
+          .catch((err) => {
+            res.status(400).send(`Failed to create {{lowercaseResourceName}}:\n${err}`);
+          });
+      }
+    );
+
+    this._router.put(
+      "/:id",
+      async (req: Request<any, any, QueryDeepPartialEntity<{{uppercaseResourceName}}>>, res) => {
+        const id = parseInt(req.params.id);
+        const {{lowercaseResourceName}} = req.body;
+        return this.{{lowercaseResourceName}}Service
+          .update(id, {{lowercaseResourceName}})
+          .then(({ status, message }) => {
+            res.status(status).send(message);
+          })
+          .catch((err) => {
+            res.status(400).send(`Failed to update {{lowercaseResourceName}}:\n${err}`);
+          });
+      }
+    );
+
+    this._router.delete("/:id", async (req, res) => {
+      const id = parseInt(req.params.id);
+      return this.{{lowercaseResourceName}}Service
+        .delete(id)
+        .then(({ status, message }) => {
+          res.status(status).send(message);
+        })
+        .catch((err) => {
+          res.status(400).send(`Failed to delete {{lowercaseResourceName}}:\n${err}`);
+        });
+    });
+  }
+}
+
+export default {{uppercaseResourceName}}Routes;

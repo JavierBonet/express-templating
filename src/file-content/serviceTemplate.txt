@@ -1,0 +1,38 @@
+import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
+import { {{uppercaseResourceName}} } from "../../database/entities/{{uppercaseResourceName}}";
+import { {{uppercaseResourceName}}Repository, getRepository } from "../repositories/{{lowercaseResourceName}}Repository";
+
+export default class {{uppercaseResourceName}}Service {
+  private repository: {{uppercaseResourceName}}Repository;
+  constructor() {
+    this.repository = getRepository();
+  }
+
+  async getAll() {
+    return this.repository.getAll();
+  }
+
+  async getById(id: number) {
+    return this.repository.getById(id);
+  }
+
+  async create({{lowercaseResourceName}}: Omit<{{uppercaseResourceName}}, "id">) {
+    return this.repository.create({{lowercaseResourceName}});
+  }
+
+  async update(id: number, {{lowercaseResourceName}}: QueryDeepPartialEntity<{{uppercaseResourceName}}>) {
+    return this.repository.update(id, {{lowercaseResourceName}}).then(({ affected }) => {
+      const status = affected === 0 ? 404 : 200;
+      const message = affected === 0 ? "{{uppercaseResourceName}} not found" : "{{uppercaseResourceName}} updated";
+      return { status, message };
+    });
+  }
+
+  async delete(id: number) {
+    return this.repository.remove(id).then(({ affected }) => {
+      const status = affected === 0 ? 404 : 200;
+      const message = affected === 0 ? "{{uppercaseResourceName}} not found" : "{{uppercaseResourceName}} deleted";
+      return { status, message };
+    });
+  }
+}

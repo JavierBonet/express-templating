@@ -1,0 +1,44 @@
+import { Repository } from "typeorm";
+import { {{uppercaseResourceName}} } from "../../database/entities/{{uppercaseResourceName}}";
+import { AppDataSource } from "../../database/data-source";
+import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
+
+class {{uppercaseResourceName}}Repository {
+  private repository: Repository<{{uppercaseResourceName}}>;
+  constructor() {
+    this.repository = AppDataSource.getRepository({{uppercaseResourceName}});
+  }
+
+  async getAll() {
+    return this.repository.find();
+  }
+
+  async getById(id: number) {
+    return this.repository.findOneBy({ id });
+  }
+
+  async create({{lowercaseResourceName}}: Omit<{{uppercaseResourceName}}, "id">) {
+    const db{{uppercaseResourceName}} = this.repository.create({{lowercaseResourceName}});
+    return this.repository.insert(db{{uppercaseResourceName}});
+  }
+
+  async update(id: number, {{lowercaseResourceName}}: QueryDeepPartialEntity<{{uppercaseResourceName}}>) {
+    return this.repository.update(id, {{lowercaseResourceName}});
+  }
+
+  async remove(id: number) {
+    return this.repository.delete(id);
+  }
+}
+
+let {{lowercaseResourceName}}Repository: {{uppercaseResourceName}}Repository;
+
+const getRepository = () => {
+  if (!{{lowercaseResourceName}}Repository) {
+    {{lowercaseResourceName}}Repository = new {{uppercaseResourceName}}Repository();
+  }
+
+  return {{lowercaseResourceName}}Repository;
+};
+
+export { getRepository, {{uppercaseResourceName}}Repository };
