@@ -1,5 +1,5 @@
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
-import { {{uppercaseResourceName}} } from "../../database/entities/{{uppercaseResourceName}}";
+import { {{uppercaseResourceName}} } from "../../{{databaseDirectoryName}}/entities/{{uppercaseResourceName}}";
 import { {{uppercaseResourceName}}Repository, getRepository } from "../repositories/{{lowercaseResourceName}}Repository";
 
 export default class {{uppercaseResourceName}}Service {

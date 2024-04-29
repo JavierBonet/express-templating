@@ -20,7 +20,7 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "include": ["src"],
-  "exclude": ["node_modules", "build"],
+  "exclude": ["node_modules", "build", "src/database", "src/repositories", "src/routes", "src/services"],
   "ts-node": {
     "files": true
   }

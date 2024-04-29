@@ -31,7 +31,7 @@ The commands included in this utility are thought considering a project that use
 # Commands
 
   ## Resource generation
-  `npx @javierbonet/express-templating generate-resource --name resourceName`
+  `npx @javierbonet/express-templating generate-resource --name user`
 
   This command will generate the following structure:
   - Directories:
@@ -39,11 +39,11 @@ The commands included in this utility are thought considering a project that use
     - /services
     - /repositories
   - Files:
-    - /routes/resourceNameRoutes.ts
-    - /services/resourceNameService.ts
-    - /repositories/resourceNameRepository.ts
+    - /routes/userRoutes.ts
+    - /services/userService.ts
+    - /repositories/userRepository.ts
  
-  ### resourceNameRoutes.ts
+  ### userRoutes.ts
   Sets express routes to enable the following actions:
   - GET /: to retrieve all resource instances
   - GET /**:id**: to retrieve an specific resource instances
@@ -51,8 +51,24 @@ The commands included in this utility are thought considering a project that use
   - PUT /**:id**: to update an specific resource instances
   - DELETE /**:id**: delete an specific resource instances
 
-  ### resourceNameService.ts
+  ### userService.ts
+  <h1>COMPLETE</h1>
 
+  ### userRepository.ts
+  <h1>COMPLETE</h1>
+
+  ### Parameters
+  - Mandatory:
+    - name: name to be used when defining the files for the resource.
+  - Optional:
+    - dbEngine: database engine to be used in the data source configuration file
+      - default: **mysql**
+    - dbPort: database port to be used in the data source configuration file
+      - default: **3306**
+    - dbDirectory: name of the directory where the data source and entities will be placed
+      - default: **database**
+    - srcDirectory: name of the directory where the routes, service and repository files will be placed
+      - default: **src**
 
 # Special mentions
 

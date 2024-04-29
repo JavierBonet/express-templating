@@ -1,0 +1,16 @@
+import "reflect-metadata";
+import { DataSource } from "typeorm";
+
+export const AppDataSource = new DataSource({
+  type: "{{databaseEngine}}",
+  host: "localhost",
+  port: {{databasePort}},
+  username: "{{databaseUserName}}",
+  password: "{{databasePassword}}",
+  database: "{{databaseName}}",
+  synchronize: true,
+  logging: false,
+  entities: [__dirname + "/entities/**"],
+  migrations: [__dirname + "/migrations/**"],
+  subscribers: [],
+});
