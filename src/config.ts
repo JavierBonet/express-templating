@@ -1,3 +1,6 @@
+const defaultDBDirectory = "database";
+const defaultSrcDirectory = "src";
+
 export class Config {
   databaseEngine: string;
   databasePort: number;
@@ -7,12 +10,12 @@ export class Config {
   constructor(
     databaseEngine: string = "mysql",
     databasePort: number = 3306,
-    databaseDirectory: string = "database",
-    sourceDirectory: string = "src"
+    databaseDirectory: string,
+    sourceDirectory: string
   ) {
     this.databaseEngine = databaseEngine;
     this.databasePort = databasePort;
-    this.databaseDirectory = databaseDirectory;
-    this.sourceDirectory = sourceDirectory;
+    this.databaseDirectory = databaseDirectory ?? defaultDBDirectory;
+    this.sourceDirectory = sourceDirectory ?? defaultSrcDirectory;
   }
 }

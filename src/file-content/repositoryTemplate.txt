@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
-import { {{uppercaseResourceName}} } from "../../{{databaseDirectoryName}}/entities/{{uppercaseResourceName}}";
-import { AppDataSource } from "../../{{databaseDirectoryName}}/data-source";
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
+import { {{uppercaseResourceName}} } from "../../{{{goUp}}}{{{databaseDirectoryName}}}/entities/{{uppercaseResourceName}}";
+import { AppDataSource } from "../../{{{goUp}}}{{{databaseDirectoryName}}}/data-source";
 
 class {{uppercaseResourceName}}Repository {
   private repository: Repository<{{uppercaseResourceName}}>;

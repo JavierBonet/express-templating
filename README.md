@@ -34,15 +34,20 @@ The commands included in this utility are thought considering a project that use
   `npx @javierbonet/express-templating generate-resource --name user`
 
   This command will generate the following structure:
-  - Directories:
-    - /routes
-    - /services
-    - /repositories
-  - Files:
-    - /routes/userRoutes.ts
-    - /services/userService.ts
-    - /repositories/userRepository.ts
- 
+
+  ```
+  ├── database
+  │   ├── entities
+  │   │   └── User.ts
+  │   └── data-source.ts
+  ├── src
+        ├── routes
+        │   └── userRoutes.ts
+        ├── services
+        │   └── userService.ts
+        ├── repositories
+            └── userRepository.ts
+  ``` 
   ### userRoutes.ts
   Sets express routes to enable the following actions:
   - GET /: to retrieve all resource instances

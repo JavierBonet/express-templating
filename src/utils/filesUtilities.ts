@@ -1,7 +1,7 @@
 import fs from "fs";
 import asyncFs from "fs/promises";
 import Mustache from "mustache";
-import { Directory } from "../directoryUtilities";
+import { Directory } from "./directoryUtilities";
 import { Config } from "../config";
 
 class FileUtilities {
@@ -95,6 +95,7 @@ class FileUtilities {
       lowercaseResourceName,
       uppercaseResourceName,
       databaseDirectoryName: config.databaseDirectory,
+      goUp: "../".repeat(config.sourceDirectory.split("/").length - 1),
     };
 
     for (const file of files) {

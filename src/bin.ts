@@ -1,39 +1,54 @@
 #!/usr/bin/env node
 
-import yargs from "yargs";
 import { generateResource } from "./commands";
-import { printErrorMessage, printHelpMessage } from "./messaging";
 import { Config } from "./config";
+import { createCommand } from "commander";
+const pkg = require("../package.json");
 
-enum Command {
-  "generateResource" = "generate-resource",
+enum Cmd {
+  GenerateResourceCommand = "generate-resource",
 }
 
-const args = yargs.parseSync(process.argv.slice(2));
+const program = createCommand();
 
-const command = args["_"][0] as Command;
-const resourceName = args["name"] as string;
-const databaseEngine = args["dbEngine"] as string;
-const databasePort = args["dbPort"] as number;
-const databaseDirectory = args["dbDirectory"] as string;
-const sourceDirectory = args["srcDirectory"] as string;
+program
+  .name(pkg["name"])
+  .description(
+    "Utility that contains some tools to accelerate building express APIs."
+  )
+  .version(pkg["version"]);
 
-function processCommand(command: Command) {
-  if (command !== "generate-resource") {
-    printErrorMessage("Invalid command!");
-    printHelpMessage();
-    return;
-  }
+program.configureHelp({
+  sortSubcommands: true,
+  helpWidth: 130,
+});
 
-  if (command === Command.generateResource) {
-    const config = new Config(
-      databaseEngine,
-      databasePort,
-      databaseDirectory,
-      sourceDirectory
+program
+  .command(Cmd.GenerateResourceCommand)
+  .description(
+    "Generates resource's routes, service, repository and entity files in their respective folders. It also creates the data source file."
+  )
+  .argument("<string>", "resource name")
+  .option("--dbEngine <string>", "database engine", "mysql")
+  .option("--dbPort <number>", "database port", "3306")
+  .option("--dbDirectory <string>", "database directory", "database")
+  .option("--srcDirectory <string>", "source directory", "src")
+  .action((resourceName, options) => {
+    const { dbEngine, dbPort, dbDirectory, srcDirectory } = options;
+    generateResource(
+      resourceName,
+      new Config(dbEngine, parseInt(dbPort), dbDirectory, srcDirectory)
     );
-    generateResource(resourceName, config);
-  }
-}
+  });
 
-processCommand(command);
+// program
+//   .command("bla-bla")
+//   .description("noooooooooooooooooo.")
+//   .option("--name", "resource name")
+//   .option("--dbEngine <string>", "database engine", "mysql")
+//   .action((str, options) => {
+//     // const limit = options.first ? 1 : undefined;
+//     console.log("NOTHIIIING");
+//   });
+
+program.parse();

@@ -1,10 +1,11 @@
 To do:
 
-[ ]  Create an sh script that takes a resource name and creates:
-  - routes: get all, get by id, post, put, delete
-  - services: getAll, getById, create, update, delete
-  - repositories: getAll, getById, create, update, remove
-  - entity
-  - data-source.ts file
+  [√]  Create an sh script that takes a resource name and creates:
+    - routes: get all, get by id, post, put, delete
+    - services: getAll, getById, create, update, delete
+    - repositories: getAll, getById, create, update, remove
+    - entity
+    - data-source.ts file
+    - Example: scriptName generate-resource resourceName
 
-  - Example: scriptName generate-resource resourceName
+  [√] Check if using library 'commander' can help with the help command (maybe also replacing the yargs library)

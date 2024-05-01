@@ -19,6 +19,6 @@ export class Directory {
     this.repositoriesPath = `${rootPath}/${this._sourceDirectory}/repositories`;
     this.entitiesPath = `${rootPath}/${this._databaseDirectory}/entities`;
     this.dataSourcePath = `${rootPath}/${this._databaseDirectory}`;
-    this.templatesPath = `${rootPath}/src/file-content`;
+    this.templatesPath = `${__dirname}/../file-content`;
   }
 }

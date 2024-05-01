@@ -1,7 +1,7 @@
 import express, { Request, Router } from "express";
-import { {{uppercaseResourceName}} } from "../../../../{{databaseDirectoryName}}/entities/{{uppercaseResourceName}}";
-import {{uppercaseResourceName}}Service from "../../../services/{{lowercaseResourceName}}Service";
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
+import { {{uppercaseResourceName}} } from "../../{{{goUp}}}{{{databaseDirectoryName}}}/entities/{{uppercaseResourceName}}";
+import {{uppercaseResourceName}}Service from "../services/{{lowercaseResourceName}}Service";
 
 class {{uppercaseResourceName}}Routes {
   private {{lowercaseResourceName}}Service: {{uppercaseResourceName}}Service;
