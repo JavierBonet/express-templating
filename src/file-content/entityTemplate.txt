@@ -4,13 +4,6 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 export class {{uppercaseResourceName}} {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  firstName: string;
-
-  @Column()
-  lastName: string;
-
-  @Column()
-  age: number;
+  
+{{fields}}
 }

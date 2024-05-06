@@ -4,8 +4,16 @@ To do:
     - routes: get all, get by id, post, put, delete
     - services: getAll, getById, create, update, delete
     - repositories: getAll, getById, create, update, remove
-    - entity
-    - data-source.ts file
+    - database
+      - entity
+      - data-source
     - Example: scriptName generate-resource resourceName
 
   [√] Check if using library 'commander' can help with the help command (maybe also replacing the yargs library)
+
+  [ ] Add validation that checks the dbEngine is in the list of available ones (I need to create one)
+
+  [ ] Add message tho the help info where it says the available types and values for the options (currently for the generate-resource command)
+
+  [ ] Add logic to handle entity properties
+    [ ] Check if can be added as argument instead of being an option

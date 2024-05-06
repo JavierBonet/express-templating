@@ -1,3 +1,4 @@
+import { acceptedTypes } from "./config";
 import { centeredDot, pencilIcon } from "./icons";
 import { PrettyConsole } from "./prettyConsole";
 
@@ -26,3 +27,16 @@ export const printSuccessMessages = (...message: string[]) => {
 export const printInfoMessage = (message: string) => {
   prettyConsole.info(message, "");
 };
+
+export const printWarningMessage = (message: string) => {
+  prettyConsole.warn(message, "");
+};
+
+export const printWarningMessages = (messages: string[]) => {
+  prettyConsole.warn(...messages);
+};
+
+export const invalidPropertiesMessage = [
+  "Check the properties, all of them must have the format name:type",
+  `Allowed types are: \n\t- ${Array.from(acceptedTypes).join(",\n\t- ")}`,
+];

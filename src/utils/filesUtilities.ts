@@ -2,7 +2,20 @@ import fs from "fs";
 import asyncFs from "fs/promises";
 import Mustache from "mustache";
 import { Directory } from "./directoryUtilities";
-import { Config } from "../config";
+import { AcceptedType, Config } from "../config";
+
+type PropertyType =
+  | AcceptedType.STRING
+  | AcceptedType.NUMBER
+  | AcceptedType.BOOLEAN
+  | AcceptedType.DATE;
+
+const typescriptTypeByProperty: Record<PropertyType, string> = {
+  string: "string",
+  number: "number",
+  boolean: "boolean",
+  date: "Date",
+};
 
 class FileUtilities {
   private _createdDirectories: string[] = [];
@@ -91,11 +104,22 @@ class FileUtilities {
       { templatePath: entityTemplatePath, path: entityFilePath },
     ];
 
+    let fields = [];
+
+    for (const property of config.properties) {
+      fields.push(
+        `\t@Column\n\t${property.name}: ${
+          typescriptTypeByProperty[property.type as PropertyType]
+        };`
+      );
+    }
+
     let replacements: Record<string, string | number> = {
       lowercaseResourceName,
       uppercaseResourceName,
       databaseDirectoryName: config.databaseDirectory,
       goUp: "../".repeat(config.sourceDirectory.split("/").length - 1),
+      fields: fields.join("\n\n"),
     };
 
     for (const file of files) {

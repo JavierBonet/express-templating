@@ -8,14 +8,13 @@
 # Description
 
 Utility that contains commands to accelerate building express APIs by generating the different directories and files for a standard set of files when creating an endpoint:
-  - Directories:
-    - /routes
-    - /services
-    - /repositories
   - Files:
-    - /routes/resourceNameRoutes.ts
-    - /services/resourceNameService.ts
-    - /repositories/resourceNameRepository.ts
+    - /routes
+      - /routes/resourceNameRoutes.ts
+    - /services
+      - /services/resourceNameService.ts
+    - /repositories
+      - /repositories/resourceNameRepository.ts
 
 In the files above ***resourceName*** will be replaced with the resource name passed as argument when executing the command in the command line.
 The commands included in this utility are thought considering a project that uses:
@@ -23,15 +22,15 @@ The commands included in this utility are thought considering a project that use
   - [Typeorm](https://typeorm.io/)
 
 # Installation
-  ## NPM
+  ### NPM
   `npm i -D @javierbonet/express-templating`
-  ## Yarn
+  ### Yarn
   `yarn add --dev @javierbonet/express-templating`
 
 # Commands
 
   ## Resource generation
-  `npx @javierbonet/express-templating generate-resource --name user`
+  `npx @javierbonet/express-templating generate-resource user -ps field1:number field2:string`
 
   This command will generate the following structure:
 
@@ -48,23 +47,12 @@ The commands included in this utility are thought considering a project that use
         ├── repositories
             └── userRepository.ts
   ``` 
-  ### userRoutes.ts
-  Sets express routes to enable the following actions:
-  - GET /: to retrieve all resource instances
-  - GET /**:id**: to retrieve an specific resource instances
-  - POST /: to create a new resource instances
-  - PUT /**:id**: to update an specific resource instances
-  - DELETE /**:id**: delete an specific resource instances
-
-  ### userService.ts
-  <h1>COMPLETE</h1>
-
-  ### userRepository.ts
-  <h1>COMPLETE</h1>
-
   ### Parameters
+  - name: to be used when defining the files for the resource.
+  
+  ### Options
   - Mandatory:
-    - name: name to be used when defining the files for the resource.
+    - -ps / --properties: properties to be used as field for the entity to create
   - Optional:
     - dbEngine: database engine to be used in the data source configuration file
       - default: **mysql**
@@ -74,6 +62,30 @@ The commands included in this utility are thought considering a project that use
       - default: **database**
     - srcDirectory: name of the directory where the routes, service and repository files will be placed
       - default: **src**
+
+  ### userRoutes.ts
+  Sets express routes to enable the following actions:
+  - GET /: to retrieve all resource instances
+  - GET /**:id**: to retrieve an specific resource instances
+  - POST /: to create a new resource instances
+  - PUT /**:id**: to update an specific resource instances
+  - DELETE /**:id**: delete an specific resource instances
+
+  ### userService.ts
+  The service use the repository to access the database. Contains the following methods.
+  - getAll(): retrieves all the users stored in the database
+  - getById(**id**: number): retrieves the specific user from the database
+  - create(**user**: *userProperties*): creates a user in the database
+  - update(**id**: number, *userProperties*): updates a user in the database
+  - delete(**id**: number): deletes a user from the database
+  
+  ### userRepository.ts
+  Contains the following methods:
+  - getAll(): retrieves all the users stored in the database
+  - getById(**id**: number): retrieves the specific user from the database
+  - create(**user**: *userProperties*): creates a user in the database
+  - update(**id**: number, *userProperties*): updates a user in the database
+  - remove(**id**: number): deletes a user from the database
 
 # Special mentions
 

@@ -1,12 +1,21 @@
 #!/usr/bin/env node
 
 import { generateResource } from "./commands";
-import { Config } from "./config";
+import { AcceptedType, Config, Property, acceptedTypes } from "./config";
 import { createCommand } from "commander";
+import { invalidPropertiesMessage, printWarningMessages } from "./messaging";
 const pkg = require("../package.json");
 
 enum Cmd {
   GenerateResourceCommand = "generate-resource",
+}
+
+interface Options {
+  dbEngine?: string;
+  dbPort?: string;
+  dbDirectory?: string;
+  srcDirectory?: string;
+  properties: Property[];
 }
 
 const program = createCommand();
@@ -33,13 +42,48 @@ program
   .option("--dbPort <number>", "database port", "3306")
   .option("--dbDirectory <string>", "database directory", "database")
   .option("--srcDirectory <string>", "source directory", "src")
-  .action((resourceName, options) => {
-    const { dbEngine, dbPort, dbDirectory, srcDirectory } = options;
-    generateResource(
-      resourceName,
-      new Config(dbEngine, parseInt(dbPort), dbDirectory, srcDirectory)
-    );
+  .option(
+    "-ps, --properties <properties...>",
+    "comma separated name:type",
+    parseProperties,
+    []
+  )
+  .action((resourceName, options: Options) => {
+    const { dbEngine, dbPort, dbDirectory, srcDirectory, properties } = options;
+    if (propertiesAreValid(properties)) {
+      console.log(properties);
+      generateResource(
+        resourceName,
+        new Config(
+          properties,
+          dbEngine,
+          parseInt(dbPort || ""),
+          dbDirectory,
+          srcDirectory
+        )
+      );
+    } else {
+      printWarningMessages(invalidPropertiesMessage);
+    }
   });
+
+function propertiesAreValid(properties: Property[]) {
+  let valid = true;
+  for (const property of properties) {
+    if (!property.type || !acceptedTypes.has(property.type as AcceptedType)) {
+      valid = false;
+      break;
+    }
+  }
+  return valid;
+}
+function parseProperties(value: string, previousProperties: Property[]) {
+  let newProperties = [...previousProperties];
+  const sanitizedValue = value.replace(",", "");
+  const [name, type] = sanitizedValue.split(":");
+  newProperties.push({ name, type });
+  return newProperties;
+}
 
 // program
 //   .command("bla-bla")
