@@ -30,7 +30,7 @@ The commands included in this utility are thought considering a project that use
 # Commands
 
   ## Resource generation
-  `npx @javierbonet/express-templating generate-resource user -ps field1:number field2:string`
+  `npx @javierbonet/express-templating generate-resource user  field1:number field2:string`
 
   This command will generate the following structure:
 
@@ -49,19 +49,17 @@ The commands included in this utility are thought considering a project that use
   ``` 
   ### Parameters
   - name: to be used when defining the files for the resource.
+  - properties list to be used as field for the entity to create: format *propertyName:type*
   
   ### Options
-  - Mandatory:
-    - -ps / --properties: properties to be used as field for the entity to create
-  - Optional:
-    - dbEngine: database engine to be used in the data source configuration file
-      - default: **mysql**
-    - dbPort: database port to be used in the data source configuration file
-      - default: **3306**
-    - dbDirectory: name of the directory where the data source and entities will be placed
-      - default: **database**
-    - srcDirectory: name of the directory where the routes, service and repository files will be placed
-      - default: **src**
+  - dbEngine: database engine to be used in the data source configuration file
+    - default: **mysql**
+  - dbPort: database port to be used in the data source configuration file
+    - default: **3306**
+  - dbDirectory: name of the directory where the data source and entities will be placed
+    - default: **database**
+  - srcDirectory: name of the directory where the routes, service and repository files will be placed
+    - default: **src**
 
   ### userRoutes.ts
   Sets express routes to enable the following actions:
