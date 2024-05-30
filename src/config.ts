@@ -17,6 +17,18 @@ export const acceptedTypes = new Set<AcceptedType>([
   AcceptedType.DATE,
 ]);
 
+export enum AcceptedDbEngine {
+  MYSQL = "mysql",
+  POSTGRES = "postgres",
+  SQLITE = "sqlite",
+}
+
+export const acceptedDbEngines = new Set<AcceptedDbEngine>([
+  AcceptedDbEngine.MYSQL,
+  AcceptedDbEngine.POSTGRES,
+  AcceptedDbEngine.SQLITE,
+]);
+
 const defaultDBDirectory = "database";
 const defaultSrcDirectory = "src";
 const defaultDatabaseEngine = "mysql";
